@@ -2175,7 +2175,6 @@ class TextEditor extends Model
     updated.forEach (id) =>
       selection = @selectionsByMarkerId[id]
       cursor = selection.cursor
-      cursor.goalColumn = null
       updatedSelections.add(selection)
       updatedCursors.add(cursor)
 
