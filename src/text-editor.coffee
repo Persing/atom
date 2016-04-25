@@ -339,9 +339,13 @@ class TextEditor extends Model
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
   onDidChangeCursorPosition: (callback) ->
-    for selection in @selections
-      selection.subscribeToMarkerEvents()
-    @subscribeToSelectionMarkerEvents = true
+    unless @subscribeToSelectionMarkerEvents
+      for selection in @selections
+        selection.subscribeToMarkerEvents()
+      @subscribeToSelectionMarkerEvents = true
+      Grim.deprecate("""
+      This method is deprecated. Consider using `TextEditor.prototype.onDidUpdateCursors` instead.
+      """)
     @emitter.on 'did-change-cursor-position', callback
 
   # Essential: Calls your `callback` when a selection's screen range changes.
@@ -356,9 +360,13 @@ class TextEditor extends Model
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
   onDidChangeSelectionRange: (callback) ->
-    for selection in @selections
-      selection.subscribeToMarkerEvents()
-    @subscribeToSelectionMarkerEvents = true
+    unless @subscribeToSelectionMarkerEvents
+      for selection in @selections
+        selection.subscribeToMarkerEvents()
+      @subscribeToSelectionMarkerEvents = true
+      Grim.deprecate("""
+      This method is deprecated. Consider using `TextEditor.prototype.onDidUpdateSelections` instead.
+      """)
     @emitter.on 'did-change-selection-range', callback
 
   # Extended: Calls your `callback` when soft wrap was enabled or disabled.
@@ -473,6 +481,10 @@ class TextEditor extends Model
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
   onDidAddCursor: (callback) ->
+    Grim.deprecate("""
+    This method is deprecated. Consider using `TextEditor.prototype.onDidUpdateCursors` instead.
+    """)
+
     @emitter.on 'did-add-cursor', callback
 
   # Extended: Calls your `callback` when a {Cursor} is removed from the editor.
@@ -482,6 +494,10 @@ class TextEditor extends Model
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
   onDidRemoveCursor: (callback) ->
+    Grim.deprecate("""
+    This method is deprecated. Consider using `TextEditor.prototype.onDidUpdateCursors` instead.
+    """)
+
     @emitter.on 'did-remove-cursor', callback
 
   # Extended: Calls your `callback` when a {Selection} is added to the editor.
@@ -502,6 +518,10 @@ class TextEditor extends Model
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
   onDidAddSelection: (callback) ->
+    Grim.deprecate("""
+    This method is deprecated. Consider using `TextEditor.prototype.onDidUpdateSelections` instead.
+    """)
+
     @emitter.on 'did-add-selection', callback
 
   # Extended: Calls your `callback` when a {Selection} is removed from the editor.
@@ -511,6 +531,10 @@ class TextEditor extends Model
   #
   # Returns a {Disposable} on which `.dispose()` can be called to unsubscribe.
   onDidRemoveSelection: (callback) ->
+    Grim.deprecate("""
+    This method is deprecated. Consider using `TextEditor.prototype.onDidUpdateSelections` instead.
+    """)
+
     @emitter.on 'did-remove-selection', callback
 
   # Extended: Calls your `callback` with each {Decoration} added to the editor.
